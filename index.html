@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Messenger</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1 class="text-center">Group Conv de SAAAALOPARD</h1>
+            <p class="connections"><span class="connect-counter">0</span><span class="green-dot"></span></p>
+        </div>
+
+        <div class="content">
+            <div>
+                <div class="message-container"></div>
+            </div>
+
+            <div class="not typing"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="footer">
+            <form>
+                <input type="hidden" name="id" value="0">
+                <div class="text-message">
+                    <input type="text" name="message" maxlength="280">
+                    <span class="char-counter">280</span>
+                </div>
+                <input type="submit" value="">
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js" defer></script>
+</body>
+</html>

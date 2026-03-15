@@ -1,0 +1,379 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+https://www.joshwcomeau.com/css/custom-css-reset/
+Josh Cormeau
+*/
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.2;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+// --------------------------------------------------
+
+$max-container-size: 720px;
+$bg-color: #0003;
+$text-color: #000;
+$message-bg-color: #0001;
+
+
+html,
+body {
+    overflow: hidden;
+    scroll-behavior: smooth;
+
+    background-color: #fff;
+
+    font-family: sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    width: $max-container-size;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    
+    
+    &>*{
+        width: 100%;
+        padding: .5rem 1rem;
+        
+        // &:not(:last-child) {
+        //     border-bottom: 1px solid #000;
+        // }
+
+        &:first-child {
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        &:last-child {
+            border-radius: 0 0 1rem 1rem;
+        }
+    }
+
+    @media screen and (max-width: $max-container-size) {
+        width: 100%;
+    }
+}
+
+.header {
+    background: $bg-color;
+    color: $text-color;
+    position: relative;
+}
+
+.footer {
+    background: $bg-color;
+    color: $text-color;
+}
+
+.content {
+    flex-grow: 1;
+    max-height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    border-inline: .25rem solid $bg-color;
+
+    &>*:not(.typing) {
+        overflow-y: scroll;
+        scrollbar-width: none;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+    
+    .typing {
+        position: absolute;
+        bottom: .5rem;
+        right: .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .25rem;
+        padding: .5rem;
+        border-radius: .5rem .5rem 0 .5rem;
+        background-color: gray;
+        z-index: 10000;
+        transform: translateY(0);
+        transition: transform ease-out 250ms;
+
+        &>* {
+            background-color: #fff;
+            border-radius: 999em;
+            width: .25rem;
+            height: .25rem;
+            aspect-ratio: 1 / 1;
+            transform: translateY(0);
+
+            animation: dotDoubleBounce 1.6s ease-out 400ms infinite;
+
+            &:first-child {
+                animation: dotBounce 1.6s ease-out 0ms infinite;
+            }
+
+            &:last-child {
+                animation: dotBounce 1.6s ease-out 800ms infinite;
+            }
+        }
+
+        &.not {
+            bottom: -.5rem;
+            transform: translateY(100%);
+        }
+    }
+}
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem
+}
+
+.text-center {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+
+    input[type="text"] {
+        width: 100%;
+        border: 0;
+        padding: 0;
+
+        &:focus-visible {
+            outline: 0;
+        }
+    }
+
+    input[type="submit"] {
+        height: 48px;
+        width: 48px;
+        aspect-ratio: 1 / 1;
+
+        background-color: #fff;
+
+        cursor: pointer;
+
+        transition: background-color .15s ease-out;
+
+        mask: {
+            image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='48px' viewBox='0 -960 960 960' width='48px' fill='%23ffffff'%3E%3Cpath d='M120-160v-245l302-75-302-77v-243l760 320-760 320Z'/%3E%3C/svg%3E");
+            position: center;
+            size: 32px;
+            repeat: no-repeat;
+        };
+
+        &:hover {
+            background-color: #f0f;
+        }
+    }
+}
+
+.message {
+    padding: .5rem 1rem;
+    background-color: $message-bg-color;
+
+    width: 90%;
+    margin-inline: 0 auto;
+    border-radius: 1rem 1rem 1rem 0;
+    
+    &[data-owner="true"] {
+        margin-inline: auto 0;
+        border-radius: 1rem 1rem 0 1rem;
+    }
+
+    .name {
+        font-style: italic;
+    }
+}
+
+.text-message {
+    width: 100%;
+    padding: .5rem;
+    background-color: #fff;
+    border-radius: .5rem;
+
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+
+    .char-counter {
+        font-family: monospace;
+        font-size: .75rem;
+        color: #0008;
+    }
+}
+
+.connections {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: monospace;
+    
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    gap: .25rem;
+
+    .green-dot {
+        display: block;
+        width: 0.5rem;
+        height: 0.5rem;
+        aspect-ratio: 1 / 1;
+        border-radius: 999em;
+        background-color: #41c56d;
+        border: 1px solid #fff;
+        box-shadow: 0 0 .25rem 0 #41c56d;
+
+        animation: shadowAnim 2s ease-out infinite;
+    }
+}
+
+@keyframes dotBounce {
+    0%,
+    25%,
+    100% {
+        transform: translateY(0);
+    }
+
+    12.5% {
+        transform: translateY(-.25rem);
+    }
+}
+
+@keyframes dotDoubleBounce {
+    0%,
+    25%,
+    50%,
+    75%,
+    100% {
+        transform: translateY(0);
+    }
+
+    12.5%,
+    62.5% {
+        transform: translateY(-.25rem);
+    }
+}
+
+@keyframes shadowAnim {
+    0%,
+    100% {
+        box-shadow: 0 0 .25rem 0 #41c56d;
+    }
+
+    50% {
+        box-shadow: 0 0 .25rem .125rem #41c56d;
+    }
+}
