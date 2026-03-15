@@ -174,3 +174,9 @@ socket.on('chat_message', (data) => {
 
     printMessage(data.name, data.message, isOwner, data.color);
 });
+
+socket.on('previous_messages', (messages) => {
+    messages.forEach(data => {
+        printMessage(data.sender, data.text, data.color, false);
+    });
+});
