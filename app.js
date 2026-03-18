@@ -44,9 +44,16 @@ function playPopSound() {
 
 // --------------------------------------------------
 // CONFIG UTILISATEUR (A rendre dynamique plus tard)
+function getRandomHexColor(needHashtag = false) {
+    const hex = Array.from({ length: 3 }, () =>
+        Math.floor(Math.random() * 256).toString(16).padStart(2, '0')
+    ).join('');
+    return needHashtag ? `#${hex}` : hex;
+}
+
 const userConfig = {
-    name: "Anna_" + Math.floor(Math.random() * 100),
-    color: Math.floor(Math.random()*16777215).toString(16)
+    name: "User_" + Math.floor(Math.random() * 100),
+    color: getRandomHexColor(),
 };
 
 // --------------------------------------------------
