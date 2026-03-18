@@ -1,6 +1,30 @@
 const socket = io();
 
 // --------------------------------------------------
+// FETCH
+async function fetchHtml(fileName) {
+
+    if (!fileName || fileName == '') return;
+    const link = '/' + fileName + '.html';
+    try {
+
+        const response = await fetch(link);
+        
+        if (!response.ok) {
+            throw new Error(`Fetch error, response status: ${response.status}`);
+        }
+        
+        const result = await response.text();
+        
+        return result;
+
+    } catch(err) {
+        console.error(err.message);
+    }
+}
+
+
+// --------------------------------------------------
 // SONS
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -11,8 +35,8 @@ function playPopSound() {
     const osc1 = audioCtx.createOscillator();
     const gain1 = audioCtx.createGain();
     osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(400, now); // Note medium
-    osc1.frequency.exponentialRampToValueAtTime(100, now + 0.05); // Chute vite
+    osc1.frequency.setValueAtTime(400, now);
+    osc1.frequency.exponentialRampToValueAtTime(100, now + 0.05);
     
     gain1.gain.setValueAtTime(0.1, now);
     gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
@@ -21,7 +45,7 @@ function playPopSound() {
     gain1.connect(audioCtx.destination);
 
     // --- PING ---
-    const delay = 0.15; // Pause
+    const delay = 0.15;
     const osc2 = audioCtx.createOscillator();
     const gain2 = audioCtx.createGain();
     osc2.type = 'triangle'; 
@@ -130,7 +154,7 @@ socket.on('user_typing', (data) => {
 
 // --------------------------------------------------
 // ENVOI DE MESSAGE
-const messageForm = footer.querySelector('form');
+const messageForm = footer.querySelector('form.send-message');
 
 function getMessageParameters() {
     return {

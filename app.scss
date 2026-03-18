@@ -110,7 +110,8 @@ h1, h2, h3, h4, h5, h6 {
 // --------------------------------------------------
 
 $max-container-size: 720px;
-$bg-color: #0003;
+$bg-color: #f8ecec;
+$bg-color-alternate: #dacccc;
 $text-color: #000;
 $message-bg-color: #0001;
 
@@ -120,9 +121,14 @@ body {
     overflow: hidden;
     scroll-behavior: smooth;
 
-    background-color: #fff;
+    background-color: #0b0b11;
 
     font-family: sans-serif;
+}
+
+#app{
+    height: 100%;
+    width: 100%;
 }
 
 .container {
@@ -137,17 +143,16 @@ body {
     &>*{
         width: 100%;
         padding: .5rem 1rem;
-        
-        // &:not(:last-child) {
-        //     border-bottom: 1px solid #000;
-        // }
+        background-color: $bg-color;
 
         &:first-child {
-            border-radius: 1rem 1rem 0 0;
+            border-top-right-radius: 1rem;
+            border-top-left-radius: 1rem;
         }
 
         &:last-child {
-            border-radius: 0 0 1rem 1rem;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
         }
     }
 
@@ -157,13 +162,13 @@ body {
 }
 
 .header {
-    background: $bg-color;
+    background: $bg-color-alternate;
     color: $text-color;
     position: relative;
 }
 
 .footer {
-    background: $bg-color;
+    background: $bg-color-alternate;
     color: $text-color;
 }
 
@@ -243,7 +248,8 @@ form {
     align-items: center;
     column-gap: .5rem;
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="password"] {
         width: 100%;
         border: 0;
         padding: 0;
@@ -253,7 +259,7 @@ form {
         }
     }
 
-    input[type="submit"] {
+    input[type="submit"].send-btn {
         height: 48px;
         width: 48px;
         aspect-ratio: 1 / 1;
@@ -337,6 +343,59 @@ form {
         box-shadow: 0 0 .25rem 0 #41c56d;
 
         animation: shadowAnim 2s ease-out infinite;
+    }
+}
+
+strong {
+    font-weight: bold;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-login {
+    background-color: $bg-color;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
+
+    padding: 2rem;
+
+    &>* {
+        width: 100%;
+    }
+
+    input[type="submit"] {
+        margin-top: 1rem;
+        border:0;
+        border-radius: 1rem;
+        background-color: #0b0b11;
+        color: #fff;
+        padding: .5rem 1rem;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #0b0b11c0;
+        }
+    }
+}
+
+.form-input {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    
+    &>input[type="text"],
+    &>input[type="password"] {
+        border: solid #fff;
+        border-inline-width: 1rem;
+        border-block-width: .5rem;
+        width: 100%;
+        border-radius: 1rem;
     }
 }
 

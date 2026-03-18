@@ -21,6 +21,12 @@ const messageSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true, trim: true },
+    password: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now }
+});
+
 const Message = mongoose.model('Message', messageSchema);
 
 const connectedUsers = new Set();
@@ -36,17 +42,14 @@ io.on('connection', (socket) => {
     });
     
     socket.on('chat_message', async (data) => {
-        // 1. On crée le message avec les données reçues
         const newMessage = new Message({
             text: data.message,
             sender: data.name
         });
 
         try {
-            // 2. On l'enregistre dans la base de données
             await newMessage.save();
             
-            // 3. UNE FOIS ENREGISTRÉ, on l'envoie à tout le monde
             io.emit('chat_message', { ...data, id: socket.id });
         } catch (err) {
             console.error("Erreur lors de l'enregistrement :", err);
@@ -62,7 +65,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         connectedUsers.delete(socket.id);
         typers.delete(socket.id);
-        // On prévient tout le monde du départ
         io.emit('user_count', connectedUsers.size);
         socket.broadcast.emit('user_typing', { isTyping: typers.size > 0 });
     });

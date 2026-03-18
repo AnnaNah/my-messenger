@@ -8,31 +8,24 @@
 </head>
 <body>
 
-    <div class="container">
+    <div id="app">
 
-        <div class="header">
-            <h1 class="text-center">Bienvenu.e <span class="username">Spectateur.rice</span></h1>
-            <p class="connections"><span class="connect-counter">0</span><span class="green-dot"></span></p>
-        </div>
+        <div class="container center-content">
 
-        <div class="content">
-            <div>
-                <div class="message-container"></div>
-            </div>
-
-            <div class="not typing"><span></span><span></span><span></span></div>
-        </div>
-
-        <div class="footer">
-            <form>
-                <input type="hidden" name="id" value="0">
-                <div class="text-message">
-                    <input type="text" name="message" maxlength="280">
-                    <span class="char-counter">280</span>
+            <form class="user-login">
+                <div class="form-input">
+                    <label for="user-login-username"><strong>Username</strong></label>
+                    <input type="text" name="user-login-username" id="user-login-username">
                 </div>
-                <input type="submit" value="">
+                <div class="form-input">
+                    <label for="user-login-password"><strong>Password</strong></label>
+                    <input type="password" name="user-login-password" id="user-login-password">
+                </div>
+                <input type="submit" value="Connexion">
             </form>
+        
         </div>
+
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
